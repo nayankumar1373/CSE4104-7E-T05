@@ -1,0 +1,140 @@
+// Initial draft schema for EduNexa AI. Will evolve during development.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [vector]
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now())
+
+  documents     Document[]
+  flashcardSets FlashcardSet[]
+  quizzes       Quiz[]
+  notes         Note[]
+  chats         Chat[]
+  projects      Project[]
+  activities    Activity[]
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title      String
+  type       String   // pdf | youtube | web | image
+  sourceUrl  String?
+  storagePath String?
+  createdAt  DateTime @default(now())
+
+  chunks DocumentChunk[]
+  chats  Chat[]
+}
+
+model DocumentChunk {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String
+  pageNumber Int?
+  embedding  Unsupported("vector(1536)")?
+}
+
+model FlashcardSet {
+  id        String      @id @default(uuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  createdAt DateTime    @default(now())
+  cards     Flashcard[]
+}
+
+model Flashcard {
+  id       String       @id @default(uuid())
+  setId    String
+  set      FlashcardSet @relation(fields: [setId], references: [id], onDelete: Cascade)
+  question String
+  answer   String
+}
+
+model Quiz {
+  id        String         @id @default(uuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  score     Int?
+  createdAt DateTime       @default(now())
+  questions QuizQuestion[]
+}
+
+model QuizQuestion {
+  id          String   @id @default(uuid())
+  quizId      String
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  question    String
+  options     String[]
+  correctIndex Int
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Chat {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documentId String?
+  document   Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  mode       String    // pdf | youtube | tutor | answer
+  createdAt  DateTime  @default(now())
+  messages   Message[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  role      String   // user | assistant
+  content   String
+  sources   Json?
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  outline   Json?
+  createdAt DateTime @default(now())
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // flashcard_created | quiz_completed | note_saved ...
+  createdAt DateTime @default(now())
+}
