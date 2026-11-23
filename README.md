@@ -1,8 +1,12 @@
 # EduNexa AI: Your Intelligent Learning & Project Workspace
 
-**Course:** CSE4104 | **Team:** CSE4104-7E-T05 | **Section:** 7E
-**Department of CSE, Northern University of Business and Technology, Khulna**
-**Course Instructor:** Md. Riaz Mahmud, Assistant Professor
+| | |
+|---|---|
+| **Course** | CSE4104 |
+| **Team** | CSE4104-7E-T05 |
+| **Section** | 7E |
+| **Department** | Department of CSE, Northern University of Business and Technology, Khulna |
+| **Course Instructor** | Md. Riaz Mahmud, Assistant Professor |
 
 EduNexa AI is an AI-based web platform where university students turn their own study material into flashcards, notes, quizzes and cited answers, and get structured help with their course projects.
 
@@ -54,32 +58,66 @@ Team Leader Email: nayanmayra7878@gmail.com
 | Payment (sandbox) | SSLCommerz or bKash sandbox |
 | Deployment | Vercel, Sentry, GitHub |
 
+## System Design Summary
+
+- **Architecture:** Frontend (Next.js) -> Backend API (Next.js API routes and service modules) -> Database (PostgreSQL + pgvector), with an AI Gateway to OpenAI / Gemini and external APIs (YouTube transcripts, payment sandbox).
+- **Database:** 18 entities including USER, DOCUMENT, DOCUMENT_CHUNK (embeddings), FLASHCARD_SET, QUIZ, NOTE, CHAT_SESSION, PROJECT, PLAN, SUBSCRIPTION and PAYMENT.
+- **API:** 66 planned REST endpoints (Auth, User, Dashboard, Documents, Flashcards, Quizzes, Notes, Chat, Projects, Plans and Payments, Admin).
+- **AI workflow:** documents are split into chunks and embedded; a question retrieves the most relevant chunks (RAG) and the model answers only from them, with sources shown.
+
+## Documents
+
+| Document | File |
+|----------|------|
+| Project Proposal | [docs/CSE4104-7E-T05_Proposal.pdf](docs/CSE4104-7E-T05_Proposal.pdf) |
+| Team Information Sheet | [docs/CSE4104-7E-T05_TeamInfo.pdf](docs/CSE4104-7E-T05_TeamInfo.pdf) |
+| Software Requirements Specification (SRS) | [docs/srs/CSE4104-7E-T05_SRS.pdf](docs/srs/CSE4104-7E-T05_SRS.pdf) |
+| System Design Document | [documentation/CSE4104-7E-T05_SystemDesign.pdf](documentation/CSE4104-7E-T05_SystemDesign.pdf) |
+| AI Integration Workflow | [documentation/CSE4104-7E-T05_AIWorkflow.pdf](documentation/CSE4104-7E-T05_AIWorkflow.pdf) |
+| Architecture notes | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| Project plan | [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) |
+
+## Diagrams (docs/diagrams)
+
+| Diagram | File |
+|---------|------|
+| Updated Use Case Diagram | [CSE4104-7E-T05_UseCaseDiagram.pdf](docs/diagrams/CSE4104-7E-T05_UseCaseDiagram.pdf) |
+| ER Diagram | [CSE4104-7E-T05_ERDiagram.pdf](docs/diagrams/CSE4104-7E-T05_ERDiagram.pdf) |
+| System Architecture Diagram | [CSE4104-7E-T05_SystemArchitectureDiagram.pdf](docs/diagrams/CSE4104-7E-T05_SystemArchitectureDiagram.pdf) |
+| Architecture Diagram (Week 03) | [CSE4104-7E-T05_ArchitectureDiagram.pdf](docs/diagrams/CSE4104-7E-T05_ArchitectureDiagram.pdf) |
+| Activity Diagrams (all four) | [CSE4104-7E-T05_ActivityDiagram.pdf](docs/diagrams/CSE4104-7E-T05_ActivityDiagram.pdf) |
+| Activity: User Registration Process | [CSE4104-7E-T05_User Registration Process.pdf](docs/diagrams/CSE4104-7E-T05_User%20Registration%20Process.pdf) |
+| Activity: Login Process | [CSE4104-7E-T05_Login Process.pdf](docs/diagrams/CSE4104-7E-T05_Login%20Process.pdf) |
+| Activity: Chat with PDF (RAG) Workflow | [CSE4104-7E-T05_Chat with PDF (RAG) Workflow.pdf](docs/diagrams/CSE4104-7E-T05_Chat%20with%20PDF%20%28RAG%29%20Workflow.pdf) |
+| Activity: AI Flashcard Generation Workflow | [CSE4104-7E-T05_AI Flashcard Generation Workflow.pdf](docs/diagrams/CSE4104-7E-T05_AI%20Flashcard%20Generation%20Workflow.pdf) |
+
 ## Repository Structure
 
 ```
 CSE4104-7E-T05/
 ├── README.md
-├── .env.example
+├── .env.example                 example environment variables (API keys are not stored here)
 ├── .gitignore
-├── prisma/                     (database schema, Prisma ORM)
+├── frontend/                    Next.js pages, components and UI state (added during development)
+├── backend/                     service modules: AI Gateway, RAG, usage limiter, billing, admin
+├── database/                    database design files: migrations, pgvector SQL, seed data
+├── documentation/               System Design and AI Workflow documents
 ├── docs/
 │   ├── CSE4104-7E-T05_Proposal.pdf
 │   ├── CSE4104-7E-T05_TeamInfo.pdf
 │   ├── ARCHITECTURE.md
 │   ├── PROJECT_PLAN.md
-│   ├── srs/
-│   │   └── CSE4104-7E-T05_SRS.pdf
-│   └── diagrams/
-│       ├── CSE4104-7E-T05_UseCaseDiagram.pdf
-│       ├── CSE4104-7E-T05_ERDiagram.pdf
-│       └── CSE4104-7E-T05_ArchitectureDiagram.pdf
-└── src/                        (application source code, added during development)
+│   ├── srs/                     Software Requirements Specification
+│   └── diagrams/                use case, ER, architecture and activity diagrams
+└── prisma/                      Prisma schema (database design)
 ```
+
+The `frontend`, `backend` and `database` folders are the initial project folders; application source code will be added in the development phase.
 
 ## Project Status
 
 - [x] Project Proposal
 - [x] Software Requirements Specification (SRS) and initial diagrams
-- [ ] System Design
+- [x] System Design and Software Architecture
 - [ ] Development
 - [ ] Testing and Deployment
