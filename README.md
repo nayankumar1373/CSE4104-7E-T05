@@ -10,6 +10,19 @@
 
 EduNexa AI is an AI-based web platform where university students turn their own study material into flashcards, notes, quizzes and cited answers, and get structured help with their course projects.
 
+## Development Roadmap (Weeks 06 to 11)
+
+| Week | Focus |
+|------|-------|
+| 06 | Backend foundation (scaffold, Supabase, Prisma, auth), UI shell |
+| 07 | Frontend core, document upload and processing pipeline |
+| 08 | AI integration: AI Gateway, RAG, Chat with PDF / YouTube, Flashcards |
+| 09 | Feature completion: Quiz, Notes, Tutor, Answers, Projects, Plans, Admin |
+| 10 | Testing, debugging, polish |
+| 11 | Deployment, final documents, demo |
+
+Task distribution: Nayan (backend, database, AI Gateway, deployment), Ishani (frontend, UI/UX), Mohua (AI prompts, testing, documentation). Details in [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md).
+
 ## Team Information
 
 | No. | Name | Student ID | Role |
@@ -74,8 +87,17 @@ Team Leader Email: nayanmayra7878@gmail.com
 | Software Requirements Specification (SRS) | [docs/srs/CSE4104-7E-T05_SRS.pdf](docs/srs/CSE4104-7E-T05_SRS.pdf) |
 | System Design Document | [documentation/CSE4104-7E-T05_SystemDesign.pdf](documentation/CSE4104-7E-T05_SystemDesign.pdf) |
 | AI Integration Workflow | [documentation/CSE4104-7E-T05_AIWorkflow.pdf](documentation/CSE4104-7E-T05_AIWorkflow.pdf) |
+| UI/UX Design Document (Week 05) | [documentation/CSE4104-7E-T05_UIDesign.pdf](documentation/CSE4104-7E-T05_UIDesign.pdf) |
+| User Flow (Week 05) | [documentation/CSE4104-7E-T05_UserFlow.pdf](documentation/CSE4104-7E-T05_UserFlow.pdf) |
+| Development Plan (Week 05) | [documentation/CSE4104-7E-T05_DevelopmentPlan.pdf](documentation/CSE4104-7E-T05_DevelopmentPlan.pdf) |
 | Architecture notes | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| Project plan | [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) |
+| Project plan and roadmap | [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) |
+| Setup guide | [docs/SETUP.md](docs/SETUP.md) |
+| Contribution rules | [CONTRIBUTING.md](CONTRIBUTING.md) |
+
+## UI Design (design/)
+
+High-fidelity, clickable prototype: open `design/prototype/index.html` in a browser. Screenshots are in `design/screens/`, user flows and the site map in `design/flows/`, and colours, fonts and components in `design/design-system.md`.
 
 ## Diagrams (docs/diagrams)
 
@@ -98,26 +120,31 @@ CSE4104-7E-T05/
 ├── README.md
 ├── .env.example                 example environment variables (API keys are not stored here)
 ├── .gitignore
+├── CONTRIBUTING.md              branch, commit and pull request rules
+├── .github/                     pull request template
 ├── frontend/                    Next.js pages, components and UI state (added during development)
 ├── backend/                     service modules: AI Gateway, RAG, usage limiter, billing, admin
-├── database/                    database design files: migrations, pgvector SQL, seed data
-├── documentation/               System Design and AI Workflow documents
+├── database/                    pgvector SQL, RLS policies, seed data
+├── design/                      HTML prototype, screens, flow diagrams, design system
+├── documentation/               System Design, AI Workflow, UI Design, User Flow, Development Plan
 ├── docs/
 │   ├── CSE4104-7E-T05_Proposal.pdf
 │   ├── CSE4104-7E-T05_TeamInfo.pdf
 │   ├── ARCHITECTURE.md
+│   ├── SETUP.md
 │   ├── PROJECT_PLAN.md
 │   ├── srs/                     Software Requirements Specification
 │   └── diagrams/                use case, ER, architecture and activity diagrams
 └── prisma/                      Prisma schema (database design)
 ```
 
-The `frontend`, `backend` and `database` folders are the initial project folders; application source code will be added in the development phase.
+The `frontend`, `backend` and `database` folders contain README files that describe the planned structure; application source code is added from Week 06.
 
 ## Project Status
 
 - [x] Project Proposal
 - [x] Software Requirements Specification (SRS) and initial diagrams
 - [x] System Design and Software Architecture
-- [ ] Development
-- [ ] Testing and Deployment
+- [x] UI/UX Design, User Flow and Development Planning (Week 05)
+- [ ] Development (Weeks 06 to 09)
+- [ ] Testing and Deployment (Weeks 10 to 11)
